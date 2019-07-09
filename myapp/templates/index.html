@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class = "container">
+
+<br>
+
+{% for post in posts.all %}
+ <div class="card">
+    <div class="card-body">
+<h3>{{post.title}}</h3>
+날짜: {{post.pub_date}}
+<br>
+내용 : {{post.body}}<a href = "{% url 'detail' post.id %}">...more</a>
+<br><hr>
+조회수 {{post.postHit}}
+
+</div>
+</div>
+<br>
+{%endfor%}
+
+</div>
+<a href="{% url 'write' %}"><button>글쓰러가기</button></a>
+</body>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<header>
+
+</header>
+
+<main>
+
+
+<div class = "container">
+
+    제목: {{posts.title}}
+    <br>
+    날짜: {{posts.pub_date}}
+    <br>
+    내용 : {{posts.body}}
+    <br>
+    조회수 {{posts.postHit}}
+    <br>
+    <a href="{% url 'index' %}" ><input type="button" value="홈으로"></a>
+<input type = 'hidden' value="{{posts.hittingPoint}}">
+</div>
+
+<div class = "container">
+{% for comment in posts.comments.all %}
+    {{ comment.commentbody }}
+    {{ comment.commentdate}}
+{% endfor %}
+</div>
+
+<form action = "{% url 'commentCreate' post_pk=posts.id %}" method = "POST">  <!-- post_pk는 다른 이름으로 해줘도 되나 url이랑 views에서 같은 이름으로 써줘야함-->
+    {% csrf_token %}  <!--POST 형식 보안방식-->
+    <input type="text" name = "content" placeholder="댓글을 작성하세요.">
+    <input type="submit" value="작성하기">
+</form>
+
+
+</main>
+</html>
+{% endblock %}
